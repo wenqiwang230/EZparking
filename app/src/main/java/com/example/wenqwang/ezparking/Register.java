@@ -6,10 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
-import android.content.Intent;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -64,6 +63,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         if(!(editTextPassword.getText().toString().trim().equals(editTextConfirmPassword.getText().toString().trim()))){
 
             Toast.makeText(this,"Passwords don't match. Please re-enter password",Toast.LENGTH_SHORT).show();
+            return;
         }
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
@@ -75,6 +75,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
                         if(task.isSuccessful()) {
                             Toast.makeText(Register.this,"Registered Successfully",Toast.LENGTH_SHORT).show();
+                            progressDialog.cancel();
                         }
                         else
                             Toast.makeText(Register.this,"Registeration Unsuccessful",Toast.LENGTH_SHORT).show();
@@ -87,8 +88,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
         if(view == buttonRegister) {
             registerUser();
-            finish();
-            startActivity(new Intent(this,Login.class));
+     //       finish();
+      //      startActivity(new Intent(this,Login.class));
         }
     }
 }
