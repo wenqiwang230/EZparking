@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.content.Intent;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -88,8 +89,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
         if(view == buttonRegister) {
             registerUser();
-     //       finish();
-      //      startActivity(new Intent(this,Login.class));
+            finish();
+            startActivity(new Intent(this,Login.class));
         }
     }
 }
