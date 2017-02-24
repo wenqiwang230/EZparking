@@ -40,14 +40,7 @@ public class Login extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    /*Toast.makeText(Login.this, "sign in successfully",
-                            Toast.LENGTH_SHORT).show();*/
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference("Area1");
-                    //myRef.setValue(new Garage(20));
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    /*finish();
-                    startActivity(new Intent(getApplicationContext(),Profile.class));*/
+                    startActivity(new Intent(getApplicationContext(),Profile.class));
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -75,8 +68,6 @@ public class Login extends AppCompatActivity {
                                 {
                                     Toast.makeText(Login.this, "sign in successfully",
                                             Toast.LENGTH_SHORT).show();
-                                    finish();
-                                    startActivity(new Intent(getApplicationContext(),Profile.class));
                                 }
 
                             }

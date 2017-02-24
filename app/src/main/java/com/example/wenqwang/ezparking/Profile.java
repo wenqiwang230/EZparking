@@ -35,8 +35,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
 
         if(view == buttonlogout)
         {
-           finish();
-           startActivity(new Intent(this,Login.class));
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this,Login.class));
         }
 
     }
