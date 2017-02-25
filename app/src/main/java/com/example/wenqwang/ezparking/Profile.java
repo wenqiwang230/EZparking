@@ -51,7 +51,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         }
         if( view == newbooking)
         {
-            startActivity(new Intent(this,Booking.class));
+            startActivity(new Intent(this,Maps.class));
         }
 
     }
