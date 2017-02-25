@@ -94,7 +94,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(1000);
-        Toast.makeText(this, "here1", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "here1", Toast.LENGTH_LONG).show();
         /*changes*/
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         if (ContextCompat.checkSelfPermission(this,
@@ -291,28 +291,28 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
     @Override
     public boolean onMarkerClick(Marker marker) {
         Intent i = null;
-        //  Toast.makeText(this,m1.getTitle().toString(),Toast.LENGTH_SHORT).show();
+          Toast.makeText(this,marker.getTitle().toString(),Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
-        if(m1.getTitle().toString().equals("Parking Spot 1")) {
+        if(m1.getTitle().toString().equals(marker.getTitle().toString())) {
             //registerUser();
             finish();
             i = new Intent(this,Booking.class);
 
-            bundle.putString("Parking Slot",m1.getTitle().toString());
+            bundle.putString("Parking Slot1",m1.getTitle().toString());
         }
-        if(m2.getTitle().toString().equals("Parking Spot 2")) {
+        if(m2.getTitle().toString().equals(marker.getTitle().toString())) {
             //registerUser();
             finish();
             i = new Intent(this,Booking.class);
 
-            bundle.putString("Parking Slot",m2.getTitle().toString());
+            bundle.putString("Parking Slot2",m2.getTitle().toString());
         }
-        if(m3.getTitle().toString().equals("Parking Spot 3")) {
+        if(m3.getTitle().toString().equals(marker.getTitle().toString())) {
             //registerUser();
             finish();
             i = new Intent(this,Booking.class);
 
-            bundle.putString("Parking Slot",m3.getTitle().toString());
+            bundle.putString("Parking Slot3",m3.getTitle().toString());
 
         }
         i.putExtras(bundle);
