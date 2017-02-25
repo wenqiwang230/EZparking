@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class Profile extends AppCompatActivity implements View.OnClickListener{
 
     private FirebaseAuth firebaseAuth;
-    private Button buttonlogout;
+    private Button buttonlogout,newbooking;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +27,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
         buttonlogout = (Button)findViewById(R.id.button4);
+        newbooking = (Button)findViewById(R.id.button);
+        newbooking.setOnClickListener(this);
         buttonlogout.setOnClickListener(this);
     }
 
@@ -35,8 +37,15 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
 
         if(view == buttonlogout)
         {
-            FirebaseAuth.getInstance().signOut();
+            firebaseAuth.getInstance().signOut();
+            //finish();
             startActivity(new Intent(this,Login.class));
+        }
+
+        if(view == newbooking) {
+
+            finish();
+            startActivity(new Intent(this,Maps.class));
         }
 
     }
