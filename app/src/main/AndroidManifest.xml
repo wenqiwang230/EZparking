@@ -41,10 +41,12 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_place_api" />
 
-        <activity android:name=".Register"></activity>
-        <activity android:name=".Profile"></activity>
-        <activity android:name=".Maps"></activity>
-        <activity android:name=".Booking"></activity>
+        <activity android:name=".Register" />
+        <activity android:name=".Profile" />
+        <activity android:name=".Maps" />
+        <activity android:name=".Booking" />
+        <activity android:name=".SlotSelection" />
+        <activity android:name=".Confirmation"></activity>
     </application>
 
 </manifest>
