@@ -83,9 +83,9 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
         buildGoogleApiClient();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
-          //  return;
+            //  return;
         }
-      //  mMap.setMyLocationEnabled(true);
+        //  mMap.setMyLocationEnabled(true);
         //}
     }
 
@@ -94,12 +94,24 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(1000);
+        Toast.makeText(this, "here1", Toast.LENGTH_LONG).show();
         /*changes*/
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+           LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+           /* LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, new LocationCallback() {
+                @Override
+                public void onLocationResult(LocationResult result) {
+                    //DebugUtils.log("onLocationResult");
+                }
+
+                @Override
+                public void onLocationAvailability(LocationAvailability locationAvailability) {
+                    //DebugUtils.log("onLocationAvailability: isLocationAvailable =  " + locationAvailability.isLocationAvailable());
+                }
+            }, null);*/
 
 
         }
@@ -119,28 +131,32 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
     @Override
     public void onLocationChanged(Location location) {
 
-            mLastLocation = location;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        }
+        //location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        mLastLocation = location;
         Marker mCurrLocationMarker = null;
         if (mCurrLocationMarker != null) {
                 mCurrLocationMarker.remove();
-            }
+          }
 
-            //Place current location marker
-            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        //Place current location marker
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         LatLng latLng2 = new LatLng(location.getLatitude()-0.0005, location.getLongitude()-0.0002);
         LatLng latLng3 = new LatLng(location.getLatitude()+0.0004, location.getLongitude()-0.0003);
         LatLng latLng4 = new LatLng(location.getLatitude()-0.0002, location.getLongitude()+0.0001);
-      //  Log.v(TAG, "Latitude is "+location.getLatitude());
-      //  Log.d("latitude", "Longitude is "+location.getLongitude());
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(latLng);
-            markerOptions.title("Current Position");
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-            mCurrLocationMarker = mMap.addMarker(markerOptions);
+        //  Log.v(TAG, "Latitude is "+location.getLatitude());
+        //  Log.d("latitude", "Longitude is "+location.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title("Current Position");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        mCurrLocationMarker = mMap.addMarker(markerOptions);
 
-            //move map camera
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+        //move map camera
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
 
         m1 = mMap.addMarker(new MarkerOptions()
                 .position(latLng2)
@@ -166,9 +182,9 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
                 .title("Parking Spot 3")
                 .snippet("")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-       // mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng4));
-       // mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
-            //stop location updates
+        // mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng4));
+        // mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+        //stop location updates
 
         mMap.setOnMarkerClickListener(this);
         /*mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
@@ -193,9 +209,9 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
                 return false;
             }
         });*/
-            if (mGoogleApiClient != null) {
-                LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-            }
+        if (mGoogleApiClient != null) {
+               LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        }
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -275,7 +291,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
     @Override
     public boolean onMarkerClick(Marker marker) {
         Intent i = null;
-      //  Toast.makeText(this,m1.getTitle().toString(),Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(this,m1.getTitle().toString(),Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         if(m1.getTitle().toString().equals("Parking Spot 1")) {
             //registerUser();
