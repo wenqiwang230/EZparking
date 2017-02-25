@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">EZparking</string>
+    <string name="title_activity_booking_view">BookingView</string>
 </resources>

@@ -43,7 +43,7 @@ public class Login extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(),Profile.class));
                 } else {
                     // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    Log.d("latuditude", "the latitude is:");
                 }
             }
         };
