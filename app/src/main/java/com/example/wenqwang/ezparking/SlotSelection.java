@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class SlotSelection extends AppCompatActivity implements View.OnClickListener{
 
@@ -217,17 +218,21 @@ public class SlotSelection extends AppCompatActivity implements View.OnClickList
         b.putString("area",temp);
 
         Bundle b1 = getIntent().getExtras();
-        String value = null,value1 = null,value2 = null, value3 = null,value4= null;
+        String value = null,value1 = null,value2 = null, value3 = null,value4= null,close = null;
         value = b1.getString("P");
         value1 = b1.getString("date");
         value2 = b1.getString("stime");
         value3 = b1.getString("etime");
+        close = b1.getString("closest");
 
+        Toast.makeText(SlotSelection.this,"You can choose the next nearest Parking Slot available : "+close,Toast.LENGTH_LONG).show();
         b.putString("P",value);
         b.putString("date",value1);
         b.putString("stime",value2);
         b.putString("etime",value3);
+        //b.putString("closest",close);
         i.putExtras(b);
+        finish();
         startActivity(i);
        // startActivity(new Intent(SlotSelection.this,Confirmation.class));
     }

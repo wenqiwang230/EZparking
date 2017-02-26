@@ -38,6 +38,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
     Location loc;
     private String TAG = "Latitude";
     public Marker m1, m2, m3;
+    LatLng latLng,latLng2,latLng3,latLng4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,10 +143,10 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
           }
 
         //Place current location marker
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        LatLng latLng2 = new LatLng(location.getLatitude()-0.0005, location.getLongitude()-0.0002);
-        LatLng latLng3 = new LatLng(location.getLatitude()+0.0004, location.getLongitude()-0.0003);
-        LatLng latLng4 = new LatLng(location.getLatitude()-0.0002, location.getLongitude()+0.0001);
+        latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        latLng2 = new LatLng(location.getLatitude()-0.0005, location.getLongitude()-0.0002);
+        latLng3 = new LatLng(location.getLatitude()+0.0004, location.getLongitude()-0.0003);
+        latLng4 = new LatLng(location.getLatitude()-0.0002, location.getLongitude()+0.0001);
         //  Log.v(TAG, "Latitude is "+location.getLatitude());
         //  Log.d("latitude", "Longitude is "+location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
@@ -293,6 +294,8 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
         Intent i = null,inti = null;
         //  Toast.makeText(this,marker.getTitle().toString(),Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
+        float mindist;String close=null;
+
         if(m1.getTitle().toString().equals(marker.getTitle().toString())) {
             //registerUser();
             finish();
@@ -300,6 +303,22 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
           //  inti = new Intent(this,Confirmation.class);
 
             bundle.putString("P",m1.getTitle().toString());
+
+                float[] distance = new float[1];
+                Location.distanceBetween(Double.valueOf(latLng2.latitude),Double.valueOf(latLng2.longitude),Double.valueOf(latLng3.latitude),Double.valueOf(latLng3.longitude),distance);
+                mindist = distance[0];
+                close = m2.getTitle();
+                Location.distanceBetween(Double.valueOf(latLng2.latitude),Double.valueOf(latLng2.longitude),Double.valueOf(latLng4.latitude),Double.valueOf(latLng4.longitude),distance);
+                if(mindist>distance[0]) {
+                    mindist = distance[0];
+                    close = m2.getTitle();
+                }
+              /*  Location.distanceBetween(Double.valueOf(latLng2.latitude),Double.valueOf(latLng2.longitude),Double.valueOf(latLng3.latitude),Double.valueOf(latLng3.longitude),distance);
+                if(mindist>distance[0])
+                mindist = distance[0];*/
+
+
+
         }
         if(m2.getTitle().toString().equals(marker.getTitle().toString())) {
             //registerUser();
@@ -308,6 +327,16 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
             //inti = new Intent(this,Confirmation.class);
 
             bundle.putString("P",m2.getTitle().toString());
+
+            float[] distance = new float[1];
+            Location.distanceBetween(Double.valueOf(latLng3.latitude),Double.valueOf(latLng3.longitude),Double.valueOf(latLng4.latitude),Double.valueOf(latLng4.longitude),distance);
+            mindist = distance[0];
+            close = m3.getTitle();
+            Location.distanceBetween(Double.valueOf(latLng3.latitude),Double.valueOf(latLng3.longitude),Double.valueOf(latLng2.latitude),Double.valueOf(latLng2.longitude),distance);
+            if(mindist>distance[0]) {
+                mindist = distance[0];
+                close = m1.getTitle();
+            }
         }
         if(m3.getTitle().toString().equals(marker.getTitle().toString())) {
             //registerUser();
@@ -317,7 +346,19 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
 
             bundle.putString("P",m3.getTitle().toString());
 
+            float[] distance = new float[1];
+            Location.distanceBetween(Double.valueOf(latLng4.latitude),Double.valueOf(latLng4.longitude),Double.valueOf(latLng2.latitude),Double.valueOf(latLng2.longitude),distance);
+            mindist = distance[0];
+            close = m1.getTitle();
+            Location.distanceBetween(Double.valueOf(latLng4.latitude),Double.valueOf(latLng4.longitude),Double.valueOf(latLng3.latitude),Double.valueOf(latLng3.longitude),distance);
+            if(mindist>distance[0]) {
+                mindist = distance[0];
+                close = m2.getTitle();
+            }
+
         }
+        bundle.putString("closest",close);
+
         i.putExtras(bundle);
         //inti.putExtras(bundle);
         startActivity(i);

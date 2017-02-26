@@ -95,11 +95,14 @@ public class Booking extends AppCompatActivity implements View.OnClickListener {
             b.putString("etime",Eend.getText().toString());
 
             Bundle b1 = getIntent().getExtras();
-            String value = null;
+            String value = null,close = null;
             value = b1.getString("P");
+            close = b1.getString("closest");
             Toast.makeText(this,value,Toast.LENGTH_SHORT);
             b.putString("P",value);
+            b.putString("closest",close);
             i.putExtras(b);
+            finish();
             startActivity(i);
         }
     }
