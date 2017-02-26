@@ -5,24 +5,24 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class Booking extends AppCompatActivity {
+public class Booking extends AppCompatActivity implements View.OnClickListener {
 
-    private Button date, start_time, end_tiem;
+    private Button date, start_time, end_tiem, search;
     private TextView Edate, Estart, Eend;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
         date = (Button)findViewById(R.id.date_selection);
+        search = (Button)findViewById(R.id.Search);
         start_time = (Button)findViewById(R.id.start_time);
         end_tiem = (Button)findViewById(R.id.end_time);
         Edate = (TextView) findViewById(R.id.Edate);
@@ -51,6 +51,9 @@ public class Booking extends AppCompatActivity {
                 newFragment.show(getFragmentManager(), "timePicker");
                 }
         });
+
+        search.setOnClickListener(this);
+
     }
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
@@ -80,5 +83,24 @@ public class Booking extends AppCompatActivity {
         // Unregister since the activity is about to be closed.
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
         super.onDestroy();
+    }
+    //@Override
+    public void onClick(View view) {
+        if(view == search) {
+            finish();
+            Intent i =new Intent(this,SlotSelection.class);
+            Bundle b = new Bundle();
+            b.putString("date",Edate.getText().toString());
+            b.putString("stime",Estart.getText().toString());
+            b.putString("etime",Eend.getText().toString());
+
+            Bundle b1 = getIntent().getExtras();
+            String value = null;
+            value = b1.getString("P");
+            Toast.makeText(this,value,Toast.LENGTH_SHORT);
+            b.putString("P",value);
+            i.putExtras(b);
+            startActivity(i);
+        }
     }
 }

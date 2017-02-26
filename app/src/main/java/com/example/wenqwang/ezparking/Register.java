@@ -1,6 +1,7 @@
 package com.example.wenqwang.ezparking;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,13 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.content.Intent;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
 
 public class Register extends AppCompatActivity implements View.OnClickListener{
     private Button buttonRegister;
@@ -24,6 +23,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     private EditText editTextConfirmPassword;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
+    public boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +66,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             Toast.makeText(this,"Passwords don't match. Please re-enter password",Toast.LENGTH_SHORT).show();
             return;
         }
+
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
 
@@ -76,10 +77,16 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
                         if(task.isSuccessful()) {
                             Toast.makeText(Register.this,"Registered Successfully",Toast.LENGTH_SHORT).show();
+                               flag = true;
                             progressDialog.cancel();
+                            FirebaseAuth.getInstance().signOut();
+                            finish();
+                            startActivity(new Intent(Register.this, Login.class));
+                        //    return;
                         }
                         else
                             Toast.makeText(Register.this,"Registeration Unsuccessful",Toast.LENGTH_SHORT).show();
+                        progressDialog.cancel();
                     }
                 });
 
@@ -89,8 +96,13 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
         if(view == buttonRegister) {
             registerUser();
-            finish();
-            startActivity(new Intent(this,Login.class));
+
+
+            if (FirebaseAuth.getInstance().getCurrentUser()!=null) {
+                /*FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(this, Login.class));*/
+            }
         }
     }
 }

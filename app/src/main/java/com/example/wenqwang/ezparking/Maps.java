@@ -290,32 +290,36 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback, Google
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Intent i = null;
-          Toast.makeText(this,marker.getTitle().toString(),Toast.LENGTH_SHORT).show();
+        Intent i = null,inti = null;
+        //  Toast.makeText(this,marker.getTitle().toString(),Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         if(m1.getTitle().toString().equals(marker.getTitle().toString())) {
             //registerUser();
             finish();
             i = new Intent(this,Booking.class);
+          //  inti = new Intent(this,Confirmation.class);
 
-            bundle.putString("Parking Slot1",m1.getTitle().toString());
+            bundle.putString("P",m1.getTitle().toString());
         }
         if(m2.getTitle().toString().equals(marker.getTitle().toString())) {
             //registerUser();
             finish();
             i = new Intent(this,Booking.class);
+            //inti = new Intent(this,Confirmation.class);
 
-            bundle.putString("Parking Slot2",m2.getTitle().toString());
+            bundle.putString("P",m2.getTitle().toString());
         }
         if(m3.getTitle().toString().equals(marker.getTitle().toString())) {
             //registerUser();
             finish();
             i = new Intent(this,Booking.class);
+            //inti = new Intent(this,Confirmation.class);
 
-            bundle.putString("Parking Slot3",m3.getTitle().toString());
+            bundle.putString("P",m3.getTitle().toString());
 
         }
         i.putExtras(bundle);
+        //inti.putExtras(bundle);
         startActivity(i);
 
         return false;

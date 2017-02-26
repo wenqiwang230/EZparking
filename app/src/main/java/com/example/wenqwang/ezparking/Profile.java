@@ -4,15 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-
-import java.util.ArrayList;
 
 public class Profile extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth firebaseAuth;
@@ -43,6 +38,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         if(view == buttonlogout)
         {
             FirebaseAuth.getInstance().signOut();
+            finish();
             startActivity(new Intent(this,Login.class));
         }
         if( view == viewbooking)
